@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Awaliya Modiste - Jasa Jahit Baju Berkualitas</title>
+  <meta name="description" content="Jasa jahit baju custom, modiste profesional, rapi dan terjangkau. Melayani kebaya, gaun pesta, dress, dan permak.">
+
+  <style>
+    /* Reset minimal */
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      line-height:1.5;
+      color:#0f172a;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      background: linear-gradient(180deg, #0f172a 0%, #0b1220 100%);
+      padding:24px;
+    }
+
+    /* Container */
+    .site{
+      max-width:1000px;
+      margin:24px auto;
+      background: linear-gradient(135deg, rgba(102,126,234,0.06), rgba(118,75,162,0.04));
+      border-radius:14px;
+      overflow:hidden;
+      box-shadow:0 10px 30px rgba(2,6,23,0.6);
+    }
+
+    header.hero{
+      background: linear-gradient(135deg,#667eea,#764ba2);
+      color:white;
+    }
+    .hero-nav{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:20px 32px;
+      border-bottom:1px solid rgba(255,255,255,0.1);
+    }
+    .hero-logo{
+      font-size:24px;
+      font-weight:bold;
+      letter-spacing:-0.5px;
+    }
+    .nav-menu{
+      display:flex;
+      gap:24px;
+      list-style:none;
+    }
+    .nav-menu a{
+      color:white;
+      text-decoration:none;
+      font-weight:500;
+      font-size:15px;
+      transition:all 0.3s;
+      padding:8px 12px;
+      border-radius:6px;
+    }
+    .nav-menu a:hover{
+      background:rgba(255,255,255,0.15);
+    }
+    .menu-toggle{
+      display:none;
+      flex-direction:column;
+      cursor:pointer;
+      gap:4px;
+    }
+    .menu-toggle span{
+      width:25px;
+      height:3px;
+      background:white;
+      border-radius:2px;
+      transition:all 0.3s;
+    }
+    .hero-content{
+      padding:48px 32px;
+      text-align:center;
+    }
+    .brand h1{font-size:32px;letter-spacing:-0.5px;margin-bottom:8px}
+    .brand p{opacity:0.95;font-size:16px;max-width:700px;margin:0 auto}
+
+    /* Gallery Section - Right after header */
+    .gallery-section{
+      padding:36px 32px;
+      background:white;
+    }
+    .gallery-section h2{
+      font-size:22px;
+      margin-bottom:20px;
+      color:#0b1220;
+      text-align:center;
+    }
+    
+    .gallery-container{
+      position:relative;
+      max-width:100%;
+      margin:0 auto;
+      border-radius:12px;
+      overflow:hidden;
+      background:linear-gradient(135deg,#667eea,#764ba2);
+      box-shadow:0 8px 24px rgba(0,0,0,0.12)
+    }
+    .gallery-slide{
+      display:none;
+      height:400px;
+      position:relative
+    }
+    .gallery-slide.active{
+      display:flex;
+      animation:fadeIn 0.5s
+    }
+    @keyframes fadeIn{
+      from{opacity:0}
+      to{opacity:1}
+    }
+    .slide-content{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      width:100%;
+      color:white;
+      padding:2rem;
+      text-align:center
+    }
+    .slide-content h3{font-size:28px;margin-bottom:8px}
+    .slide-content p{font-size:16px;opacity:0.9}
+    
+    .slide-controls{
+      position:absolute;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      opacity:0;
+      transition:opacity 0.3s;
+      pointer-events:none;
+    }
+    .gallery-container:hover .slide-controls{
+      opacity:1;
+      pointer-events:auto;
+    }
+    .slide-nav{
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      background:rgba(255,255,255,0.9);
+      border:none;
+      width:40px;
+      height:40px;
+      border-radius:50%;
+      cursor:pointer;
+      font-size:18px;
+      color:#667eea;
+      transition:all 0.3s;
+      box-shadow:0 4px 10px rgba(0,0,0,0.2)
+    }
+    .slide-nav:hover{background:white;transform:translateY(-50%) scale(1.1)}
+    .prev{left:10px}
+    .next{right:10px}
+
+    .slide-indicators{
+      text-align:center;
+      padding:16px 0
+    }
+    .indicator{
+      display:inline-block;
+      width:10px;
+      height:10px;
+      border-radius:50%;
+      background:#ddd;
+      margin:0 5px;
+      cursor:pointer;
+      transition:all 0.3s
+    }
+    .indicator.active{
+      background:#667eea;
+      width:24px;
+      border-radius:5px
+    }
+
+    main.content{padding:36px 32px;background:white}
+    .grid{display:grid;grid-template-columns:1fr 320px;gap:28px}
+
+    /* About & services */
+    section{margin-bottom:28px}
+    h2{font-size:22px;margin-bottom:12px;color:#0b1220}
+    p.lead{color:#334155;line-height:1.7}
+
+    /* About with Read More */
+    .about-content{
+      background:linear-gradient(180deg,#f8fafc,#ffffff);
+      padding:20px;
+      border-radius:12px;
+      border:1px solid #eef2ff;
+    }
+    .about-text{
+      max-height:120px;
+      overflow:hidden;
+      transition:max-height 0.3s ease;
+      position:relative;
+    }
+    .about-text.expanded{
+      max-height:1000px;
+    }
+    .about-text:not(.expanded):after{
+      content:'';
+      position:absolute;
+      bottom:0;
+      left:0;
+      right:0;
+      height:40px;
+      background:linear-gradient(to bottom, transparent, #ffffff);
+    }
+    .read-more-btn{
+      display:inline-block;
+      margin-top:12px;
+      padding:8px 16px;
+      background:linear-gradient(90deg,#667eea,#764ba2);
+      color:white;
+      border:none;
+      border-radius:8px;
+      cursor:pointer;
+      font-weight:600;
+      font-size:14px;
+      transition:all 0.3s;
+    }
+    .read-more-btn:hover{
+      transform:translateY(-2px);
+      box-shadow:0 4px 12px rgba(102,126,234,0.3)
+    }
+
+    .services ul{list-style:none;display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+    .services li{
+      background:linear-gradient(180deg,#f8fafc,#ffffff);
+      padding:12px;border-radius:10px;border:1px solid #eef2ff;
+      transition:all 0.3s
+    }
+    .services li:hover{
+      border-color:#667eea;
+      transform:translateY(-2px);
+      box-shadow:0 4px 12px rgba(102,126,234,0.1)
+    }
+
+    /* Card for contact with map */
+    .card-contact{
+      background:linear-gradient(180deg,#eef2ff,#ffffff);
+      padding:20px;
+      border-radius:12px;
+      border:1px solid #dbeafe;
+      box-shadow:0 4px 12px rgba(0,0,0,0.05)
+    }
+    .contact-item{margin-bottom:14px}
+    
+    .map-container{
+      margin-top:12px;
+      border-radius:10px;
+      overflow:hidden;
+      border:2px solid #e0e7ff;
+      cursor:pointer;
+      transition:all 0.3s;
+    }
+    .map-container:hover{
+      border-color:#667eea;
+      box-shadow:0 4px 12px rgba(102,126,234,0.2)
+    }
+    .map-placeholder{
+      width:100%;
+      height:200px;
+      background:linear-gradient(135deg,#667eea,#764ba2);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      color:white;
+      text-decoration:none;
+      font-weight:600;
+      font-size:14px;
+      gap:8px;
+    }
+    .map-placeholder:hover{
+      background:linear-gradient(135deg,#7c8ff5,#8b5cf6);
+    }
+    
+    .wa-btn{
+      display:block;
+      text-align:center;
+      padding:12px 16px;
+      border-radius:10px;
+      text-decoration:none;
+      font-weight:700;
+      background:linear-gradient(90deg,#10b981,#059669);
+      color:white;
+      transition:all 0.3s
+    }
+    .wa-btn:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(16,185,129,0.3)}
+
+    .email-btn{
+      display:block;
+      text-align:center;
+      padding:12px 16px;
+      border-radius:10px;
+      text-decoration:none;
+      font-weight:700;
+      background:linear-gradient(90deg,#667eea,#764ba2);
+      color:white;
+      transition:all 0.3s;
+      margin-top:8px
+    }
+    .email-btn:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(102,126,234,0.3)}
+
+    /* WhatsApp Floating Button */
+    .wa-float{
+      position:fixed;
+      bottom:30px;
+      right:30px;
+      width:60px;
+      height:60px;
+      background:linear-gradient(135deg,#25D366,#128C7E);
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow:0 6px 20px rgba(37,211,102,0.4);
+      cursor:pointer;
+      z-index:1000;
+      transition:all 0.3s;
+      text-decoration:none;
+      animation:pulse 2s infinite;
+    }
+    .wa-float:hover{
+      transform:scale(1.1);
+      box-shadow:0 8px 25px rgba(37,211,102,0.6)
+    }
+    .wa-float svg{
+      width:32px;
+      height:32px;
+      fill:white;
+    }
+    @keyframes pulse{
+      0%, 100%{box-shadow:0 6px 20px rgba(37,211,102,0.4)}
+      50%{box-shadow:0 6px 30px rgba(37,211,102,0.6)}
+    }
+
+    /* Testimonials */
+    .testimoni{margin-bottom:28px}
+    .testimoni-list{display:grid;grid-template-columns:1fr;gap:16px;margin-bottom:20px}
+    .t-card{
+      background:#fbfbff;
+      padding:16px;
+      border-radius:10px;
+      border:1px solid #eef2ff;
+      transition:all 0.3s;
+      position:relative;
+    }
+    .t-card:hover{
+      border-color:#667eea;
+      transform:translateY(-2px);
+      box-shadow:0 4px 12px rgba(102,126,234,0.1)
+    }
+    .t-header{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-bottom:10px;
+    }
+    .t-avatar{
+      width:45px;
+      height:45px;
+      border-radius:50%;
+      background:linear-gradient(135deg,#667eea,#764ba2);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:white;
+      font-weight:700;
+      font-size:18px;
+    }
+    .t-info strong{
+      display:block;
+      color:#0b1220;
+      font-size:15px;
+    }
+    .t-date{
+      font-size:12px;
+      color:#9ca3af;
+    }
+    .t-stars{
+      color:#fbbf24;
+      font-size:14px;
+      margin-bottom:8px;
+    }
+    .t-text{
+      color:#4b5563;
+      line-height:1.6;
+      font-size:14px;
+    }
+    
+    .testimoni-form{
+      background:linear-gradient(180deg,#f8fafc,#ffffff);
+      padding:20px;
+      border-radius:12px;
+      border:1px solid #eef2ff;
+    }
+    .form-group{
+      margin-bottom:14px;
+    }
+    .form-group label{
+      display:block;
+      margin-bottom:6px;
+      font-weight:600;
+      font-size:14px;
+      color:#0b1220;
+    }
+    .form-group input,
+    .form-group textarea{
+      width:100%;
+      padding:10px 12px;
+      border:1px solid #e0e7ff;
+      border-radius:8px;
+      font-family:inherit;
+      font-size:14px;
+      transition:all 0.3s;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus{
+      outline:none;
+      border-color:#667eea;
+      box-shadow:0 0 0 3px rgba(102,126,234,0.1);
+    }
+    .form-group textarea{
+      resize:vertical;
+      min-height:80px;
+    }
+    .rating-input{
+      display:flex;
+      gap:6px;
+      flex-direction:row-reverse;
+      justify-content:flex-end;
+      width:fit-content;
+    }
+    .rating-input input{
+      display:none;
+    }
+    .rating-input label{
+      cursor:pointer;
+      font-size:24px;
+      color:#d1d5db;
+      transition:color 0.2s;
+    }
+    .rating-input input:checked ~ label,
+    .rating-input label:hover,
+    .rating-input label:hover ~ label{
+      color:#fbbf24;
+    }
+    .submit-btn{
+      background:linear-gradient(90deg,#667eea,#764ba2);
+      color:white;
+      border:none;
+      padding:12px 24px;
+      border-radius:8px;
+      font-weight:700;
+      cursor:pointer;
+      width:100%;
+      font-size:15px;
+      transition:all 0.3s;
+    }
+    .submit-btn:hover{
+      transform:translateY(-2px);
+      box-shadow:0 6px 16px rgba(102,126,234,0.3);
+    }
+    .submit-btn:disabled{
+      opacity:0.6;
+      cursor:not-allowed;
+      transform:none;
+    }
+
+    footer{
+      padding:18px 32px;
+      background:#071133;
+      color:#c7d2fe;
+      text-align:center;
+      font-size:14px
+    }
+
+    /* Responsive */
+    @media (max-width:900px){
+      .grid{grid-template-columns:1fr}
+      .gallery-slide{height:320px}
+      .wa-float{bottom:20px;right:20px;width:55px;height:55px}
+      .wa-float svg{width:28px;height:28px}
+      .nav-menu{
+        position:fixed;
+        top:73px;
+        right:-100%;
+        flex-direction:column;
+        background:rgba(102,126,234,0.98);
+        backdrop-filter:blur(10px);
+        padding:20px;
+        border-radius:12px 0 0 12px;
+        box-shadow:-4px 4px 20px rgba(0,0,0,0.3);
+        transition:right 0.3s;
+        z-index:999;
+      }
+      .nav-menu.active{
+        right:0;
+      }
+      .menu-toggle{
+        display:flex;
+      }
+    }
+    @media (max-width:480px){
+      .gallery-slide{height:280px}
+      .brand h1{font-size:24px}
+      body{padding:12px}
+      .site{margin:12px}
+      .services ul{grid-template-columns:1fr}
+      .wa-float{width:50px;height:50px}
+      .wa-float svg{width:26px;height:26px}
+      .hero-logo{font-size:20px}
+    }
+
+    /* Small utilities */
+    .muted{color:#6b7280}
+    .small{font-size:13px}
+
+  </style>
+</head>
+<body>
+  <div class="site">
+
+    <header class="hero">
+      <nav class="hero-nav">
+        <div class="hero-logo">Awaliya Modiste</div>
+        <div class="menu-toggle" onclick="toggleMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <ul class="nav-menu" id="navMenu">
+          <li><a href="#about" onclick="closeMenu()">Tentang Kami</a></li>
+          <li><a href="#gallery" onclick="closeMenu()">Galeri</a></li>
+          <li><a href="#services" onclick="closeMenu()">Layanan</a></li>
+          <li><a href="#kontak" onclick="closeMenu()">Hubungi Kami</a></li>
+        </ul>
+      </nav>
+      <div class="hero-content">
+        <div class="brand">
+          <h1>✨ Awaliya Modiste ✨</h1>
+          <p>Jasa jahit baju berkualitas tinggi dengan desain custom sesuai keinginan Anda. Melayani kebaya, gaun pesta, dress, blazer, dan permak dengan hasil yang rapi dan profesional.</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- Gallery Section - Right after header -->
+    <section class="gallery-section" id="gallery">
+      <h2>Galeri Karya Kami</h2>
+      <div class="gallery-container">
+        <div class="gallery-slide active">
+          <div class="slide-content">
+            <h3>Gaun Pesta Elegan</h3>
+            <p>Desain mewah dengan detail sempurna untuk acara spesial Anda</p>
+          </div>
+        </div>
+        <div class="gallery-slide">
+          <div class="slide-content">
+            <h3>Kebaya Modern</h3>
+            <p>Perpaduan sempurna antara tradisi dan gaya kontemporer</p>
+          </div>
+        </div>
+        <div class="gallery-slide">
+          <div class="slide-content">
+            <h3>Dress Casual Chic</h3>
+            <p>Nyaman dan stylish untuk aktivitas sehari-hari</p>
+          </div>
+        </div>
+        <div class="gallery-slide">
+          <div class="slide-content">
+            <h3>Blazer & Formal Wear</h3>
+            <p>Tampil profesional dengan potongan yang sempurna</p>
+          </div>
+        </div>
+        <div class="gallery-slide">
+          <div class="slide-content">
+            <h3>Custom Design</h3>
+            <p>Baju impian Anda, dirancang khusus sesuai keinginan</p>
+          </div>
+        </div>
+
+        <div class="slide-controls">
+          <button class="slide-nav prev" onclick="moveSlide(-1)">❮</button>
+          <button class="slide-nav next" onclick="moveSlide(1)">❯</button>
+        </div>
+      </div>
+      <div class="slide-indicators">
+        <span class="indicator active" onclick="setSlide(0)"></span>
+        <span class="indicator" onclick="setSlide(1)"></span>
+        <span class="indicator" onclick="setSlide(2)"></span>
+        <span class="indicator" onclick="setSlide(3)"></span>
+        <span class="indicator" onclick="setSlide(4)"></span>
+      </div>
+    </section>
+
+    <main class="content">
+      <div class="grid">
+        <div>
+          <section id="about">
+            <h2>Tentang Kami</h2>
+            <div class="about-content">
+              <div class="about-text" id="aboutText">
+                <p class="lead">Awaliya Modiste adalah jasa modiste profesional yang mengutamakan kepuasan pelanggan. Kami melayani jahit custom dengan detail sempurna, dari pemilihan bahan hingga finishing.</p>
+                <p class="lead" style="margin-top:12px">Setiap jahitan dikerjakan dengan teliti dan penuh dedikasi untuk menghasilkan baju impian Anda. Dengan pengalaman bertahun-tahun di industri fashion, kami memahami betul bagaimana membuat pakaian yang tidak hanya indah dipandang, tetapi juga nyaman dipakai.</p>
+                <p class="lead" style="margin-top:12px">Tim kami terdiri dari penjahit berpengalaman yang mahir dalam berbagai teknik jahit, mulai dari jahitan tangan tradisional hingga teknik modern. Kami selalu mengikuti perkembangan tren fashion terkini sambil tetap menghargai nilai-nilai klasik dalam setiap karya kami.</p>
+                <p class="lead" style="margin-top:12px">Kepercayaan dan kepuasan pelanggan adalah prioritas utama kami. Oleh karena itu, kami selalu memberikan konsultasi mendetail sebelum proses jahit dimulai, memastikan setiap detail sesuai dengan keinginan Anda.</p>
+              </div>
+              <button class="read-more-btn" onclick="toggleReadMore()">Baca Selengkapnya</button>
+            </div>
+          </section>
+
+          <section id="services" class="services">
+            <h2>Layanan Kami</h2>
+            <ul>
+              <li>👗 Jahit Gaun Pesta & Kebaya Modern</li>
+              <li>✨ Dress Casual & Formal Wear</li>
+              <li>💼 Blazer & Seragam Kantor</li>
+              <li>✂️ Modifikasi & Custom Design</li>
+              <li>📏 Permak (Resleting, Ukuran, Detail)</li>
+              <li>🎨 Konsultasi Desain & Bahan</li>
+            </ul>
+          </section>
+
+          <section id="testimoni">
+            <h2>Testimoni Pelanggan</h2>
+            <div class="testimoni-list" id="testimoniList">
+              <div class="t-card" style="text-align:center;padding:40px;color:#9ca3af">
+                <div style="font-size:48px;margin-bottom:10px">💬</div>
+                <p>Memuat testimoni...</p>
+              </div>
+            </div>
+
+            <div class="testimoni-form">
+              <h3 style="margin-bottom:16px;font-size:18px">Tulis Testimoni Anda</h3>
+              <form id="testimoniForm" onsubmit="submitTestimoni(event)">
+                <div class="form-group">
+                  <label>Nama Anda</label>
+                  <input type="text" id="userName" placeholder="Masukkan nama Anda" required>
+                </div>
+                <div class="form-group">
+                  <label>Rating</label>
+                  <div class="rating-input">
+                    <input type="radio" name="rating" id="star5" value="5" required>
+                    <label for="star5">★</label>
+                    <input type="radio" name="rating" id="star4" value="4">
+                    <label for="star4">★</label>
+                    <input type="radio" name="rating" id="star3" value="3">
+                    <label for="star3">★</label>
+                    <input type="radio" name="rating" id="star2" value="2">
+                    <label for="star2">★</label>
+                    <input type="radio" name="rating" id="star1" value="1">
+                    <label for="star1">★</label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Testimoni Anda</label>
+                  <textarea id="userTestimoni" placeholder="Ceritakan pengalaman Anda dengan layanan kami..." required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Kirim Testimoni</button>
+              </form>
+              <p class="small muted" style="margin-top:12px;text-align:center">
+                ℹ️ Testimoni akan ditampilkan setelah disetujui admin
+              </p>
+            </div>
+          </section>
+
+        </div>
+
+        <aside>
+          <div class="card-contact" id="kontak">
+            <h3>Hubungi & Pesan</h3>
+            <p class="muted small">Untuk pemesanan atau konsultasi, hubungi kami melalui:</p>
+            
+            <div class="contact-item">
+              <strong>📱 WhatsApp</strong>
+              <div style="margin-top:8px">
+                <a class="wa-btn" href="https://wa.me/6281234567890?text=Halo%20Awaliya%20Modiste,%20saya%20ingin%20bertanya%20tentang%20jasa%20jahit" target="_blank">Chat Sekarang</a>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <strong>✉️ Email</strong>
+              <div style="margin-top:8px">
+                <a class="email-btn" href="mailto:awaliyamodiste@gmail.com?subject=Pertanyaan%20Jasa%20Jahit&body=Halo%20Awaliya%20Modiste,">Kirim Email</a>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <strong>📍 Lokasi Kami</strong>
+              <p class="small muted">Klik peta untuk navigasi</p>
+              <div class="map-container" onclick="window.open('https://maps.google.com/?q=-6.200000,106.816666', '_blank')">
+                <div class="map-placeholder">
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                  </svg>
+                  <div style="text-align:center">
+                    <div>Jakarta, Indonesia</div>
+                    <div style="font-size:12px;opacity:0.9">Tap untuk buka Google Maps</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <strong>🕐 Jam Konsultasi</strong>
+              <p class="small muted">Senin - Sabtu, 09:00 - 18:00</p>
+            </div>
+
+            <div class="contact-item">
+              <strong>💰 Harga</strong>
+              <p class="small muted">Mulai dari Rp 150.000 (tergantung desain & bahan)</p>
+            </div>
+
+          </div>
+
+          <div style="margin-top:16px;padding:14px;border-radius:10px;background:linear-gradient(180deg,#fff,#f8fafc);border:1px solid #eef2ff">
+            <h4>🌟 Keunggulan Kami</h4>
+            <ul class="small muted" style="margin-left:16px;margin-top:8px">
+              <li>Jahitan rapi & presisi</li>
+              <li>Konsultasi desain gratis</li>
+              <li>Pengukuran detail</li>
+              <li>Bahan berkualitas</li>
+              <li>Garansi kepuasan</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <footer>
+      <div style="max-width:1000px;margin:0 auto;padding:6px 18px">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+          <div class="small">© <strong>Awaliya Modiste</strong> — Jasa Jahit Baju Berkualitas</div>
+          <div class="small muted">Melayani dengan Hati, Menjahit dengan Cinta ❤️</div>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- WhatsApp Floating Button -->
+  <a href="https://wa.me/6281234567890?text=Halo%20Awaliya%20Modiste,%20saya%20ingin%20bertanya%20tentang%20jasa%20jahit" class="wa-float" target="_blank" title="Chat via WhatsApp">
+    <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+      <path d="M16 0C7.164 0 0 7.163 0 16c0 2.825.745 5.478 2.05 7.766L.707 31.293l7.764-2.05C10.762 30.549 13.325 31.293 16 31.293c8.837 0 16-7.163 16-16S24.837 0 16 0zm0 29.293c-2.544 0-4.942-.721-6.977-1.978l-.5-.309-5.191 1.369 1.381-5.068-.32-.518C2.721 20.755 2 18.436 2 16c0-7.732 6.268-14 14-14s14 6.268 14 14-6.268 14-14 14zm7.684-10.146c-.42-.211-2.487-1.228-2.873-1.368-.386-.14-.666-.211-.947.21-.281.421-1.088 1.369-1.334 1.649-.246.281-.491.316-.912.105-.42-.21-1.774-.654-3.38-2.084-1.25-1.114-2.094-2.491-2.34-2.912-.246-.421-.026-.649.184-.859.189-.188.42-.491.631-.737.211-.246.281-.421.421-.702.14-.281.07-.526-.035-.737-.105-.211-.947-2.283-1.299-3.125-.342-.821-.689-.709-.947-.723-.246-.014-.526-.014-.807-.014-.281 0-.737.105-1.123.526-.386.421-1.474 1.439-1.474 3.511s1.509 4.072 1.719 4.353c.211.281 2.965 4.527 7.184 6.349 1.004.435 1.789.695 2.401.889.1.032 1.934.626 3.697.369 1.129-.168 2.487-.947 2.838-1.861.351-.914.351-1.702.246-1.861-.105-.158-.386-.246-.807-.456z"/>
+    </svg>
+  </a>
+
+  <script>
+    // Gallery Slideshow
+    let currentIndex = 0;
+    const slides = document.querySelectorAll('.gallery-slide');
+    const indicators = document.querySelectorAll('.indicator');
+    let autoSlideInterval;
+
+    function showSlide(index) {
+      if (index >= slides.length) currentIndex = 0;
+      if (index < 0) currentIndex = slides.length - 1;
+
+      slides.forEach(s => s.classList.remove('active'));
+      indicators.forEach(i => i.classList.remove('active'));
+
+      slides[currentIndex].classList.add('active');
+      indicators[currentIndex].classList.add('active');
+    }
+
+    function moveSlide(direction) {
+      currentIndex += direction;
+      showSlide(currentIndex);
+      resetAutoSlide();
+    }
+
+    function setSlide(index) {
+      currentIndex = index;
+      showSlide(currentIndex);
+      resetAutoSlide();
+    }
+
+    function autoSlide() {
+      currentIndex++;
+      showSlide(currentIndex);
+    }
+
+    function resetAutoSlide() {
+      clearInterval(autoSlideInterval);
+      autoSlideInterval = setInterval(autoSlide, 4000);
+    }
+
+    autoSlideInterval = setInterval(autoSlide, 4000);
+
+    // Read More Toggle
+    function toggleReadMore() {
+      const aboutText = document.getElementById('aboutText');
+      const btn = event.target;
+      
+      if (aboutText.classList.contains('expanded')) {
+        aboutText.classList.remove('expanded');
+        btn.textContent = 'Baca Selengkapnya';
+      } else {
+        aboutText.classList.add('expanded');
+        btn.textContent = 'Sembunyikan';
+      }
+    }
+
+    // Menu Toggle for Mobile
+    function toggleMenu() {
+      const navMenu = document.getElementById('navMenu');
+      navMenu.classList.toggle('active');
+    }
+
+    function closeMenu() {
+      const navMenu = document.getElementById('navMenu');
+      navMenu.classList.remove('active');
+    }
+
+    // Testimoni - Google Sheets Integration
+    const GAS_URL = 'https://script.google.com/macros/s/AKfycbwjppxDdofvewTCnPIOAx6S9d82C9KmoJ89JvgJ0Y6jDsfjfXWCnPKvW-oH6ZFNBMSc/exec'; // Ganti dengan URL Apps Script Anda
+    
+    // Load testimonials from Google Sheets
+    async function loadTestimonials() {
+      try {
+        const response = await fetch(GAS_URL);
+        const result = await response.json();
+        
+        if (result.success && result.data.length > 0) {
+          const testimoniList = document.getElementById('testimoniList');
+          testimoniList.innerHTML = ''; // Clear existing
+          
+          result.data.forEach(item => {
+            const initial = item.nama.charAt(0).toUpperCase();
+            const stars = '★'.repeat(parseInt(item.rating));
+            const date = formatDate(item.timestamp);
+            
+            const card = document.createElement('div');
+            card.className = 't-card';
+            card.innerHTML = `
+              <div class="t-header">
+                <div class="t-avatar">${initial}</div>
+                <div class="t-info">
+                  <strong>${item.nama}</strong>
+                  <span class="t-date">${date}</span>
+                </div>
+              </div>
+              <div class="t-stars">${stars}</div>
+              <p class="t-text">${item.testimoni}</p>
+            `;
+            testimoniList.appendChild(card);
+          });
+        }
+      } catch (error) {
+        console.error('Error loading testimonials:', error);
+      }
+    }
+    
+    // Format date
+    function formatDate(timestamp) {
+      const date = new Date(timestamp);
+      const now = new Date();
+      const diff = Math.floor((now - date) / 1000); // seconds
+      
+      if (diff < 60) return 'Baru saja';
+      if (diff < 3600) return Math.floor(diff / 60) + ' menit yang lalu';
+      if (diff < 86400) return Math.floor(diff / 3600) + ' jam yang lalu';
+      if (diff < 604800) return Math.floor(diff / 86400) + ' hari yang lalu';
+      if (diff < 2592000) return Math.floor(diff / 604800) + ' minggu yang lalu';
+      return Math.floor(diff / 2592000) + ' bulan yang lalu';
+    }
+    
+    // Submit testimoni to Google Sheets
+    async function submitTestimoni(event) {
+      event.preventDefault();
+      
+      const submitBtn = event.target.querySelector('.submit-btn');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Mengirim...';
+      
+      const userName = document.getElementById('userName').value;
+      const rating = document.querySelector('input[name="rating"]:checked').value;
+      const testimoni = document.getElementById('userTestimoni').value;
+      
+      try {
+        const response = await fetch(GAS_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'text/plain',
+          },
+          body: JSON.stringify({
+            nama: userName,
+            rating: rating,
+            testimoni: testimoni
+          })
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+          alert('Terima kasih atas testimoni Anda! 🙏\n\nTestimoni Anda akan ditampilkan setelah disetujui oleh admin.');
+          document.getElementById('testimoniForm').reset();
+        } else {
+          alert('Maaf, terjadi kesalahan. Silakan coba lagi.');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Maaf, terjadi kesalahan. Silakan coba lagi.');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Kirim Testimoni';
+      }
+    }
+    
+    // Load testimonials on page load
+    loadTestimonials();
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
