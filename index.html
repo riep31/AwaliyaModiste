@@ -16,22 +16,21 @@
       color:#0f172a;
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
-      background: linear-gradient(180deg, #0f172a 0%, #0b1220 100%);
-      padding:24px;
+      background:#ffffff;
+      padding:0;
+      margin:0;
     }
 
     /* Container */
     .site{
-      max-width:1000px;
-      margin:24px auto;
-      background: linear-gradient(135deg, rgba(102,126,234,0.06), rgba(118,75,162,0.04));
-      border-radius:14px;
+      max-width:100%;
+      margin:0;
+      background:#ffffff;
       overflow:hidden;
-      box-shadow:0 10px 30px rgba(2,6,23,0.6);
     }
 
     header.hero{
-      background: linear-gradient(135deg,#667eea,#764ba2);
+      background: linear-gradient(90deg, #2399e0 0%, #5664e4 100%);
       color:white;
     }
     .hero-nav{
@@ -42,9 +41,9 @@
       border-bottom:1px solid rgba(255,255,255,0.1);
     }
     .hero-logo{
-      font-size:24px;
+      font-size:28px;
       font-weight:bold;
-      letter-spacing:-0.5px;
+      letter-spacing: 1px;
     }
     .nav-menu{
       display:flex;
@@ -55,7 +54,7 @@
       color:white;
       text-decoration:none;
       font-weight:500;
-      font-size:15px;
+      font-size:14px;
       transition:all 0.3s;
       padding:8px 12px;
       border-radius:6px;
@@ -83,14 +82,14 @@
     .brand h1{font-size:32px;letter-spacing:-0.5px;margin-bottom:8px}
     .brand p{opacity:0.95;font-size:16px;max-width:700px;margin:0 auto}
 
-    /* Gallery Section - Right after header */
+    /* Gallery Section */
     .gallery-section{
-      padding:36px 32px;
-      background:white;
+      padding:60px 32px;
+      background:#f8fafc;
     }
     .gallery-section h2{
-      font-size:22px;
-      margin-bottom:20px;
+      font-size:32px;
+      margin-bottom:40px;
       color:#0b1220;
       text-align:center;
     }
@@ -99,15 +98,18 @@
       position:relative;
       max-width:100%;
       margin:0 auto;
-      border-radius:12px;
       overflow:hidden;
-      background:linear-gradient(135deg,#667eea,#764ba2);
+      background: linear-gradient(90deg, #287b9b 0%, #39a8cc 100%);
+      border-radius:8px;
       box-shadow:0 8px 24px rgba(0,0,0,0.12)
     }
     .gallery-slide{
       display:none;
       height:400px;
-      position:relative
+      position:relative;
+      background-size:cover;
+      background-position:center;
+      background-repeat:no-repeat;
     }
     .gallery-slide.active{
       display:flex;
@@ -125,10 +127,12 @@
       width:100%;
       color:white;
       padding:2rem;
-      text-align:center
+      text-align:center;
+      background:rgba(0,0,0,0.4);
+      backdrop-filter:blur(2px);
     }
-    .slide-content h3{font-size:28px;margin-bottom:8px}
-    .slide-content p{font-size:16px;opacity:0.9}
+    .slide-content h3{font-size:28px;margin-bottom:8px;text-shadow:2px 2px 4px rgba(0,0,0,0.6)}
+    .slide-content p{font-size:16px;opacity:0.9;text-shadow:1px 1px 3px rgba(0,0,0,0.6)}
     
     .slide-controls{
       position:absolute;
@@ -183,8 +187,8 @@
       border-radius:5px
     }
 
-    main.content{padding:36px 32px;background:white}
-    .grid{display:grid;grid-template-columns:1fr 320px;gap:28px}
+    main.content{padding:60px 32px;background:white}
+    .grid{display:grid;grid-template-columns:1fr 320px;gap:40px;max-width:1200px;margin:0 auto}
 
     /* About & services */
     section{margin-bottom:28px}
@@ -244,6 +248,166 @@
       border-color:#667eea;
       transform:translateY(-2px);
       box-shadow:0 4px 12px rgba(102,126,234,0.1)
+    }
+
+    /* Article Card Styles */
+    .article-card{
+      background:linear-gradient(180deg,#f8fafc,#ffffff);
+      border-radius:12px;
+      border:1px solid #eef2ff;
+      overflow:hidden;
+      transition:all 0.3s;
+      cursor:pointer;
+    }
+    .article-card:hover{
+      border-color:#667eea;
+      transform:translateY(-2px);
+      box-shadow:0 6px 20px rgba(102,126,234,0.15);
+    }
+    .article-image{
+      width:100%;
+      height:200px;
+      background-size:cover;
+      background-position:center;
+      background-color:#e0e7ff;
+    }
+    .article-content{
+      padding:16px;
+    }
+    .article-category{
+      display:inline-block;
+      padding:4px 12px;
+      background:linear-gradient(90deg,#667eea,#764ba2);
+      color:white;
+      font-size:12px;
+      font-weight:600;
+      border-radius:20px;
+      margin-bottom:8px;
+    }
+    .article-title{
+      font-size:18px;
+      font-weight:700;
+      color:#0b1220;
+      margin-bottom:8px;
+      line-height:1.4;
+    }
+    .article-excerpt{
+      font-size:14px;
+      color:#4b5563;
+      line-height:1.6;
+      margin-bottom:12px;
+    }
+    .article-meta{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-size:12px;
+      color:#9ca3af;
+    }
+    .article-date{
+      display:flex;
+      align-items:center;
+      gap:4px;
+    }
+    .read-article-btn{
+      display:inline-block;
+      margin-top:8px;
+      padding:6px 14px;
+      background:linear-gradient(90deg,#667eea,#764ba2);
+      color:white;
+      border:none;
+      border-radius:6px;
+      font-size:13px;
+      font-weight:600;
+      text-decoration:none;
+      transition:all 0.3s;
+    }
+    .read-article-btn:hover{
+      transform:translateY(-1px);
+      box-shadow:0 4px 10px rgba(102,126,234,0.3);
+    }
+
+    /* Article Modal */
+    .article-modal{
+      display:none;
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      background:rgba(0,0,0,0.7);
+      z-index:2000;
+      overflow-y:auto;
+      padding:20px;
+    }
+    .article-modal.active{
+      display:flex;
+      align-items:flex-start;
+      justify-content:center;
+      animation:fadeIn 0.3s;
+    }
+    .modal-content{
+      background:white;
+      max-width:800px;
+      width:100%;
+      border-radius:12px;
+      margin:40px auto;
+      position:relative;
+      animation:slideUp 0.3s;
+    }
+    @keyframes slideUp{
+      from{transform:translateY(30px);opacity:0}
+      to{transform:translateY(0);opacity:1}
+    }
+    .modal-close{
+      position:absolute;
+      top:16px;
+      right:16px;
+      background:white;
+      border:none;
+      width:36px;
+      height:36px;
+      border-radius:50%;
+      cursor:pointer;
+      font-size:20px;
+      color:#667eea;
+      box-shadow:0 2px 8px rgba(0,0,0,0.1);
+      transition:all 0.3s;
+      z-index:10;
+    }
+    .modal-close:hover{
+      background:#667eea;
+      color:white;
+      transform:rotate(90deg);
+    }
+    .modal-header{
+      height:300px;
+      background-size:cover;
+      background-position:center;
+      border-radius:12px 12px 0 0;
+      position:relative;
+    }
+    .modal-header:after{
+      content:'';
+      position:absolute;
+      bottom:0;
+      left:0;
+      right:0;
+      height:100px;
+      background:linear-gradient(to bottom, transparent, rgba(0,0,0,0.6));
+    }
+    .modal-body{
+      padding:24px;
+    }
+    .modal-body h2{
+      font-size:28px;
+      margin-bottom:16px;
+      color:#0b1220;
+    }
+    .modal-body p{
+      line-height:1.8;
+      color:#334155;
+      margin-bottom:14px;
     }
 
     /* Card for contact with map */
@@ -493,6 +657,9 @@
       .gallery-slide{height:320px}
       .wa-float{bottom:20px;right:20px;width:55px;height:55px}
       .wa-float svg{width:28px;height:28px}
+      main.content{padding:40px 20px}
+      .gallery-section{padding:40px 20px}
+      .hero-content{padding:40px 20px}
       .nav-menu{
         position:fixed;
         top:73px;
@@ -516,8 +683,11 @@
     @media (max-width:480px){
       .gallery-slide{height:280px}
       .brand h1{font-size:24px}
-      body{padding:12px}
-      .site{margin:12px}
+      body{padding:0}
+      .site{margin:0}
+      main.content{padding:30px 16px}
+      .gallery-section{padding:30px 16px}
+      .hero-content{padding:30px 16px}
       .services ul{grid-template-columns:1fr}
       .wa-float{width:50px;height:50px}
       .wa-float svg{width:26px;height:26px}
@@ -550,44 +720,20 @@
       </nav>
       <div class="hero-content">
         <div class="brand">
-          <h1>✨ Awaliya Modiste ✨</h1>
-          <p>Jasa jahit baju berkualitas tinggi dengan desain custom sesuai keinginan Anda. Melayani kebaya, gaun pesta, dress, blazer, dan permak dengan hasil yang rapi dan profesional.</p>
+          <h1>Awaliya Modiste</h1>
+          <p>Jasa jahit baju berkualitas dengan desain custom sesuai keinginan Anda. Melayani kebaya, gaun pesta, dress, blazer dengan hasil yang rapi dan profesional.</p>
         </div>
       </div>
     </header>
 
-    <!-- Gallery Section - Right after header -->
+    <!-- Gallery Section -->
     <section class="gallery-section" id="gallery">
       <h2>Galeri Karya Kami</h2>
       <div class="gallery-container">
-        <div class="gallery-slide active">
-          <div class="slide-content">
-            <h3>Gaun Pesta Elegan</h3>
-            <p>Desain mewah dengan detail sempurna untuk acara spesial Anda</p>
-          </div>
-        </div>
-        <div class="gallery-slide">
-          <div class="slide-content">
-            <h3>Kebaya Modern</h3>
-            <p>Perpaduan sempurna antara tradisi dan gaya kontemporer</p>
-          </div>
-        </div>
-        <div class="gallery-slide">
-          <div class="slide-content">
-            <h3>Dress Casual Chic</h3>
-            <p>Nyaman dan stylish untuk aktivitas sehari-hari</p>
-          </div>
-        </div>
-        <div class="gallery-slide">
-          <div class="slide-content">
-            <h3>Blazer & Formal Wear</h3>
-            <p>Tampil profesional dengan potongan yang sempurna</p>
-          </div>
-        </div>
-        <div class="gallery-slide">
-          <div class="slide-content">
-            <h3>Custom Design</h3>
-            <p>Baju impian Anda, dirancang khusus sesuai keinginan</p>
+        <div id="gallerySlides" style="width:100%;height:400px;display:flex;align-items:center;justify-content:center;color:white">
+          <div style="text-align:center">
+            <div style="font-size:48px;margin-bottom:10px">📸</div>
+            <p>Memuat galeri...</p>
           </div>
         </div>
 
@@ -596,13 +742,7 @@
           <button class="slide-nav next" onclick="moveSlide(1)">❯</button>
         </div>
       </div>
-      <div class="slide-indicators">
-        <span class="indicator active" onclick="setSlide(0)"></span>
-        <span class="indicator" onclick="setSlide(1)"></span>
-        <span class="indicator" onclick="setSlide(2)"></span>
-        <span class="indicator" onclick="setSlide(3)"></span>
-        <span class="indicator" onclick="setSlide(4)"></span>
-      </div>
+      <div class="slide-indicators" id="galleryIndicators"></div>
     </section>
 
     <main class="content">
@@ -621,6 +761,17 @@
             </div>
           </section>
 
+          <!-- Blog Articles Section -->
+          <section id="articles" style="margin-top:28px">
+            <h2>Artikel & Tips Fashion</h2>
+            <div id="articlesList" style="display:grid;gap:16px">
+              <div style="text-align:center;padding:40px;background:#f8fafc;border-radius:10px;color:#9ca3af">
+                <div style="font-size:48px;margin-bottom:10px">📝</div>
+                <p>Memuat artikel...</p>
+              </div>
+            </div>
+          </section>
+
           <section id="services" class="services">
             <h2>Layanan Kami</h2>
             <ul>
@@ -628,7 +779,6 @@
               <li>✨ Dress Casual & Formal Wear</li>
               <li>💼 Blazer & Seragam Kantor</li>
               <li>✂️ Modifikasi & Custom Design</li>
-              <li>📏 Permak (Resleting, Ukuran, Detail)</li>
               <li>🎨 Konsultasi Desain & Bahan</li>
             </ul>
           </section>
@@ -670,9 +820,6 @@
                 </div>
                 <button type="submit" class="submit-btn">Kirim Testimoni</button>
               </form>
-              <p class="small muted" style="margin-top:12px;text-align:center">
-                ℹ️ Testimoni akan ditampilkan setelah disetujui admin
-              </p>
             </div>
           </section>
 
@@ -700,13 +847,13 @@
             <div class="contact-item">
               <strong>📍 Lokasi Kami</strong>
               <p class="small muted">Klik peta untuk navigasi</p>
-              <div class="map-container" onclick="window.open('https://maps.google.com/?q=-6.200000,106.816666', '_blank')">
+              <div class="map-container" onclick="window.open('https://www.google.com/maps/place/liya+modiste/@-7.8805757,110.3153866,17z/data=!3m1!4b1!4m6!3m5!1s0x2e7aff4d4cd7dfe1:0x645940aaaaeac9d2!8m2!3d-7.8805757!4d110.3179615!16s%2Fg%2F11c1s22cyn?entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoASAFQAw%3D%3D', '_blank')">
                 <div class="map-placeholder">
                   <svg width="40" height="40" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
                     <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
                   </svg>
                   <div style="text-align:center">
-                    <div>Jakarta, Indonesia</div>
+                    <div>Yogyakarta, Indonesia</div>
                     <div style="font-size:12px;opacity:0.9">Tap untuk buka Google Maps</div>
                   </div>
                 </div>
@@ -757,22 +904,96 @@
     </svg>
   </a>
 
+  <!-- Article Modal -->
+  <div class="article-modal" id="articleModal" onclick="closeArticleModal(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeArticleModal()">×</button>
+      <div class="modal-header" id="modalHeader"></div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
   <script>
-    // Gallery Slideshow
+    // Google Apps Script URL - GANTI DENGAN URL ANDA
+    const GAS_URL = 'https://script.google.com/macros/s/AKfycbwjppxDdofvewTCnPIOAx6S9d82C9KmoJ89JvgJ0Y6jDsfjfXWCnPKvW-oH6ZFNBMSc/exec';
+
+    // Gallery Slideshow with Images from Google Sheets
     let currentIndex = 0;
-    const slides = document.querySelectorAll('.gallery-slide');
-    const indicators = document.querySelectorAll('.indicator');
+    let slides = [];
     let autoSlideInterval;
+    let galleryData = [];
+
+    // Load gallery from Google Sheets
+    async function loadGallery() {
+      try {
+        const response = await fetch(GAS_URL + '?action=getGallery');
+        const result = await response.json();
+        
+        if (result.success && result.data && result.data.length > 0) {
+          galleryData = result.data;
+          renderGallery();
+          startAutoSlide();
+        } else {
+          document.getElementById('gallerySlides').innerHTML = `
+            <div style="text-align:center;color:white">
+              <div style="font-size:48px;margin-bottom:10px">📸</div>
+              <p>Galeri belum tersedia</p>
+            </div>
+          `;
+        }
+      } catch (error) {
+        console.error('Error loading gallery:', error);
+        document.getElementById('gallerySlides').innerHTML = `
+          <div style="text-align:center;color:white">
+            <div style="font-size:48px;margin-bottom:10px">⚠️</div>
+            <p>Gagal memuat galeri</p>
+          </div>
+        `;
+      }
+    }
+
+    function renderGallery() {
+      const container = document.getElementById('gallerySlides');
+      const indicatorsContainer = document.getElementById('galleryIndicators');
+      
+      container.innerHTML = '';
+      indicatorsContainer.innerHTML = '';
+      
+      galleryData.forEach((item, index) => {
+        const slide = document.createElement('div');
+        slide.className = 'gallery-slide' + (index === 0 ? ' active' : '');
+        slide.style.backgroundImage = `url('${item.imageUrl}')`;
+        slide.innerHTML = `
+          <div class="slide-content">
+            <h3>${item.title}</h3>
+            <p>${item.description}</p>
+          </div>
+        `;
+        container.appendChild(slide);
+        
+        const indicator = document.createElement('span');
+        indicator.className = 'indicator' + (index === 0 ? ' active' : '');
+        indicator.onclick = () => setSlide(index);
+        indicatorsContainer.appendChild(indicator);
+      });
+      
+      slides = document.querySelectorAll('.gallery-slide');
+    }
 
     function showSlide(index) {
+      if (slides.length === 0) return;
+      
       if (index >= slides.length) currentIndex = 0;
       if (index < 0) currentIndex = slides.length - 1;
 
+      const indicators = document.querySelectorAll('.indicator');
       slides.forEach(s => s.classList.remove('active'));
       indicators.forEach(i => i.classList.remove('active'));
 
       slides[currentIndex].classList.add('active');
-      indicators[currentIndex].classList.add('active');
+      if (indicators[currentIndex]) {
+        indicators[currentIndex].classList.add('active');
+      }
     }
 
     function moveSlide(direction) {
@@ -794,10 +1015,12 @@
 
     function resetAutoSlide() {
       clearInterval(autoSlideInterval);
-      autoSlideInterval = setInterval(autoSlide, 4000);
+      startAutoSlide();
     }
 
-    autoSlideInterval = setInterval(autoSlide, 4000);
+    function startAutoSlide() {
+      autoSlideInterval = setInterval(autoSlide, 4000);
+    }
 
     // Read More Toggle
     function toggleReadMore() {
@@ -824,18 +1047,15 @@
       navMenu.classList.remove('active');
     }
 
-    // Testimoni - Google Sheets Integration
-    const GAS_URL = 'https://script.google.com/macros/s/AKfycbwjppxDdofvewTCnPIOAx6S9d82C9KmoJ89JvgJ0Y6jDsfjfXWCnPKvW-oH6ZFNBMSc/exec'; // Ganti dengan URL Apps Script Anda
-    
     // Load testimonials from Google Sheets
     async function loadTestimonials() {
       try {
-        const response = await fetch(GAS_URL);
+        const response = await fetch(GAS_URL + '?action=getTestimonials');
         const result = await response.json();
         
         if (result.success && result.data.length > 0) {
           const testimoniList = document.getElementById('testimoniList');
-          testimoniList.innerHTML = ''; // Clear existing
+          testimoniList.innerHTML = '';
           
           result.data.forEach(item => {
             const initial = item.nama.charAt(0).toUpperCase();
@@ -857,6 +1077,13 @@
             `;
             testimoniList.appendChild(card);
           });
+        } else {
+          document.getElementById('testimoniList').innerHTML = `
+            <div class="t-card" style="text-align:center;padding:40px;color:#9ca3af">
+              <div style="font-size:48px;margin-bottom:10px">💬</div>
+              <p>Belum ada testimoni. Jadilah yang pertama!</p>
+            </div>
+          `;
         }
       } catch (error) {
         console.error('Error loading testimonials:', error);
@@ -867,7 +1094,7 @@
     function formatDate(timestamp) {
       const date = new Date(timestamp);
       const now = new Date();
-      const diff = Math.floor((now - date) / 1000); // seconds
+      const diff = Math.floor((now - date) / 1000);
       
       if (diff < 60) return 'Baru saja';
       if (diff < 3600) return Math.floor(diff / 60) + ' menit yang lalu';
@@ -896,6 +1123,7 @@
             'Content-Type': 'text/plain',
           },
           body: JSON.stringify({
+            action: 'addTestimonial',
             nama: userName,
             rating: rating,
             testimoni: testimoni
@@ -905,22 +1133,124 @@
         const result = await response.json();
         
         if (result.success) {
-          alert('Terima kasih atas testimoni Anda! 🙏\n\nTestimoni Anda akan ditampilkan setelah disetujui oleh admin.');
+          alert('✅ Terima kasih atas testimoni Anda! 🙏');
           document.getElementById('testimoniForm').reset();
+          loadTestimonials();
         } else {
-          alert('Maaf, terjadi kesalahan. Silakan coba lagi.');
+          alert('❌ Maaf, terjadi kesalahan. Silakan coba lagi.');
         }
       } catch (error) {
         console.error('Error:', error);
-        alert('Maaf, terjadi kesalahan. Silakan coba lagi.');
+        alert('❌ Maaf, terjadi kesalahan. Silakan coba lagi.');
       } finally {
         submitBtn.disabled = false;
         submitBtn.textContent = 'Kirim Testimoni';
       }
     }
     
-    // Load testimonials on page load
-    loadTestimonials();
+    // Load Articles from Google Sheets
+    async function loadArticles() {
+      try {
+        const response = await fetch(GAS_URL + '?action=getArticles');
+        const result = await response.json();
+        
+        if (result.success && result.data && result.data.length > 0) {
+          const articlesList = document.getElementById('articlesList');
+          articlesList.innerHTML = '';
+          
+          result.data.forEach(article => {
+            const date = formatDate(article.timestamp);
+            
+            const card = document.createElement('div');
+            card.className = 'article-card';
+            card.onclick = () => openArticleModal(article);
+            card.innerHTML = `
+              <div class="article-image" style="background-image:url('${article.imageUrl || 'https://via.placeholder.com/400x200/667eea/ffffff?text=Artikel'}')"></div>
+              <div class="article-content">
+                <span class="article-category">${article.category || 'Tips Fashion'}</span>
+                <h3 class="article-title">${article.title}</h3>
+                <p class="article-excerpt">${article.excerpt || article.content.substring(0, 120) + '...'}</p>
+                <div class="article-meta">
+                  <span class="article-date">
+                    📅 ${date}
+                  </span>
+                  <span>👁️ ${article.views || 0} views</span>
+                </div>
+                <a href="#" class="read-article-btn" onclick="event.preventDefault()">Baca Selengkapnya →</a>
+              </div>
+            `;
+            articlesList.appendChild(card);
+          });
+        } else {
+          document.getElementById('articlesList').innerHTML = `
+            <div style="text-align:center;padding:40px;background:#f8fafc;border-radius:10px;color:#9ca3af">
+              <div style="font-size:48px;margin-bottom:10px">📝</div>
+              <p>Artikel akan segera hadir</p>
+            </div>
+          `;
+        }
+      } catch (error) {
+        console.error('Error loading articles:', error);
+      }
+    }
+    
+    // Open Article Modal
+    function openArticleModal(article) {
+      const modal = document.getElementById('articleModal');
+      const modalHeader = document.getElementById('modalHeader');
+      const modalBody = document.getElementById('modalBody');
+      
+      modalHeader.style.backgroundImage = `url('${article.imageUrl || 'https://via.placeholder.com/800x300/667eea/ffffff?text=Artikel'}')`;
+      
+      modalBody.innerHTML = `
+        <span class="article-category">${article.category || 'Tips Fashion'}</span>
+        <h2>${article.title}</h2>
+        <div class="article-meta" style="margin-bottom:20px">
+          <span>📅 ${formatDate(article.timestamp)}</span>
+          <span style="margin-left:16px">👁️ ${article.views || 0} views</span>
+        </div>
+        ${article.content.split('\n').map(p => p.trim() ? `<p>${p}</p>` : '').join('')}
+      `;
+      
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      
+      updateArticleViews(article.id);
+    }
+    
+    // Close Article Modal
+    function closeArticleModal(event) {
+      if (!event || event.target.id === 'articleModal') {
+        const modal = document.getElementById('articleModal');
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+      }
+    }
+    
+    // Update article views
+    async function updateArticleViews(articleId) {
+      try {
+        await fetch(GAS_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'text/plain',
+          },
+          body: JSON.stringify({
+            action: 'updateViews',
+            id: articleId
+          })
+        });
+      } catch (error) {
+        console.error('Error updating views:', error);
+      }
+    }
+    
+    // Load all content on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      loadGallery();
+      loadTestimonials();
+      loadArticles();
+    });
 
     // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
