@@ -425,29 +425,17 @@
       border-radius:10px;
       overflow:hidden;
       border:2px solid #e0e7ff;
-      cursor:pointer;
       transition:all 0.3s;
     }
     .map-container:hover{
       border-color:#667eea;
       box-shadow:0 4px 12px rgba(102,126,234,0.2)
     }
-    .map-placeholder{
-      width:100%;
-      height:200px;
-      background:linear-gradient(135deg,#667eea,#764ba2);
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      color:white;
-      text-decoration:none;
-      font-weight:600;
-      font-size:14px;
-      gap:8px;
-    }
-    .map-placeholder:hover{
-      background:linear-gradient(135deg,#7c8ff5,#8b5cf6);
+    /* Style untuk iframe peta */
+    .map-container iframe {
+      width: 100%;
+      height: 250px;
+      border: 0;
     }
     
     .wa-btn{
@@ -833,32 +821,36 @@
             <div class="contact-item">
               <strong>📱 WhatsApp</strong>
               <div style="margin-top:8px">
-                <a class="wa-btn" href="https://wa.me/6281234567890?text=Halo%20Awaliya%20Modiste,%20saya%20ingin%20bertanya%20tentang%20jasa%20jahit" target="_blank">Chat Sekarang</a>
+                <a class="wa-btn" href="https://wa.me/6289672158651?text=Halo%20Awaliya%20Modiste,%20saya%20ingin%20bertanya%20tentang%20jasa%20jahit" target="_blank">Chat Sekarang</a>
               </div>
             </div>
 
             <div class="contact-item">
               <strong>✉️ Email</strong>
               <div style="margin-top:8px">
-                <a class="email-btn" href="mailto:awaliyamodiste@gmail.com?subject=Pertanyaan%20Jasa%20Jahit&body=Halo%20Awaliya%20Modiste,">Kirim Email</a>
+                <a class="email-btn" href="mailto:mahardhika635@gmail.com?subject=Pertanyaan%20Jasa%20Jahit&body=Halo%20Awaliya%20Modiste,">Kirim Email</a>
               </div>
             </div>
 
+            <!-- ======================================================= -->
+            <!-- ========= BAGIAN YANG DIUBAH (MAPS) ========= -->
+            <!-- ======================================================= -->
             <div class="contact-item">
               <strong>📍 Lokasi Kami</strong>
               <p class="small muted">Klik peta untuk navigasi</p>
-              <div class="map-container" onclick="window.open('https://www.google.com/maps/place/liya+modiste/@-7.8805757,110.3153866,17z/data=!3m1!4b1!4m6!3m5!1s0x2e7aff4d4cd7dfe1:0x645940aaaaeac9d2!8m2!3d-7.8805757!4d110.3179615!16s%2Fg%2F11c1s22cyn?entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoASAFQAw%3D%3D', '_blank')">
-                <div class="map-placeholder">
-                  <svg width="40" height="40" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-                  </svg>
-                  <div style="text-align:center">
-                    <div>Yogyakarta, Indonesia</div>
-                    <div style="font-size:12px;opacity:0.9">Tap untuk buka Google Maps</div>
-                  </div>
-                </div>
+              <div class="map-container">
+                <!-- GANTI SRC DI BAWAH INI DENGAN URL EMBED DARI GOOGLE MAPS -->
+                <iframe 
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.1381988823823!2d110.31542057588759!3d-7.880605778378579!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7af96a1539d04f%3A0xeb6703eec2842bd3!2sAwaliya%20moslem%20mode!5e0!3m2!1sen!2sid!4v1765553080492!5m2!1sen!2sid"
+                  allowfullscreen="" 
+                  loading="lazy" 
+                  referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
               </div>
             </div>
+            <!-- ======================================================= -->
+            <!-- ========= AKHIR BAGIAN YANG DIUBAH ========= -->
+            <!-- ======================================================= -->
 
             <div class="contact-item">
               <strong>🕐 Jam Konsultasi</strong>
@@ -915,7 +907,7 @@
 
   <script>
     // Google Apps Script URL - GANTI DENGAN URL ANDA
-    const GAS_URL = 'https://script.google.com/macros/s/AKfycbwjppxDdofvewTCnPIOAx6S9d82C9KmoJ89JvgJ0Y6jDsfjfXWCnPKvW-oH6ZFNBMSc/exec';
+    const GAS_URL = 'https://script.google.com/macros/s/AKfycbwK_jjrN54OsE-OiIm979J5Zm0BG77E7zk9NYVprmPUx6VwmZaKPvLhAQyPsO58MAV5/exec';
 
     // Gallery Slideshow with Images from Google Sheets
     let currentIndex = 0;
