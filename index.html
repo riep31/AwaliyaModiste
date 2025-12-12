@@ -82,7 +82,7 @@
     .brand h1{font-size:32px;letter-spacing:-0.5px;margin-bottom:8px}
     .brand p{opacity:0.95;font-size:16px;max-width:700px;margin:0 auto}
 
-    /* Gallery Section */
+    /* Gallery Section - MODIFIED */
     .gallery-section{
       padding:60px 32px;
       background:#f8fafc;
@@ -94,97 +94,137 @@
       text-align:center;
     }
     
-    .gallery-container{
-      position:relative;
-      max-width:100%;
-      margin:0 auto;
-      overflow:hidden;
-      background: linear-gradient(90deg, #287b9b 0%, #39a8cc 100%);
-      border-radius:8px;
-      box-shadow:0 8px 24px rgba(0,0,0,0.12)
+    /* Grid untuk thumbnail */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); /* 2 kolom untuk 4 foto */
+      gap: 16px;
+      max-width: 800px;
+      margin: 0 auto;
     }
-    .gallery-slide{
-      display:none;
-      height:400px;
-      position:relative;
-      background-size:cover;
-      background-position:center;
-      background-repeat:no-repeat;
-    }
-    .gallery-slide.active{
-      display:flex;
-      animation:fadeIn 0.5s
-    }
-    @keyframes fadeIn{
-      from{opacity:0}
-      to{opacity:1}
-    }
-    .slide-content{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      width:100%;
-      color:white;
-      padding:2rem;
-      text-align:center;
-      background:rgba(0,0,0,0.4);
-      backdrop-filter:blur(2px);
-    }
-    .slide-content h3{font-size:28px;margin-bottom:8px;text-shadow:2px 2px 4px rgba(0,0,0,0.6)}
-    .slide-content p{font-size:16px;opacity:0.9;text-shadow:1px 1px 3px rgba(0,0,0,0.6)}
-    
-    .slide-controls{
-      position:absolute;
-      top:0;
-      left:0;
-      width:100%;
-      height:100%;
-      opacity:0;
-      transition:opacity 0.3s;
-      pointer-events:none;
-    }
-    .gallery-container:hover .slide-controls{
-      opacity:1;
-      pointer-events:auto;
-    }
-    .slide-nav{
-      position:absolute;
-      top:50%;
-      transform:translateY(-50%);
-      background:rgba(255,255,255,0.9);
-      border:none;
-      width:40px;
-      height:40px;
-      border-radius:50%;
-      cursor:pointer;
-      font-size:18px;
-      color:#667eea;
-      transition:all 0.3s;
-      box-shadow:0 4px 10px rgba(0,0,0,0.2)
-    }
-    .slide-nav:hover{background:white;transform:translateY(-50%) scale(1.1)}
-    .prev{left:10px}
-    .next{right:10px}
 
-    .slide-indicators{
-      text-align:center;
-      padding:16px 0
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      cursor: pointer;
+      aspect-ratio: 2 / 3; /* Rasio potrait umum */
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    .indicator{
-      display:inline-block;
-      width:10px;
-      height:10px;
-      border-radius:50%;
-      background:#ddd;
-      margin:0 5px;
-      cursor:pointer;
-      transition:all 0.3s
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* Memastikan gambar memenuhi container tanpa distorsi */
+      transition: transform 0.4s ease;
     }
-    .indicator.active{
-      background:#667eea;
-      width:24px;
-      border-radius:5px
+
+    .gallery-item:hover {
+        transform: scale(1.03);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+    
+    .gallery-item:hover img {
+        transform: scale(1.1);
+    }
+
+    /* Modal untuk slideshow besar - MODIFIED */
+    .gallery-modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      animation: fadeIn 0.3s;
+    }
+
+    .gallery-modal.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content-gallery {
+      position: relative;
+      max-width: 90%;
+      max-height: 90vh;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    #modalImage {
+      max-width: 100%;
+      max-height: 90vh;
+      border-radius: 8px;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+    }
+
+    /* Navigasi di dalam modal */
+    .modal-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.8);
+      color: #667eea;
+      border: none;
+      padding: 10px 15px;
+      font-size: 24px;
+      cursor: pointer;
+      border-radius: 50%;
+      transition: background 0.3s, transform 0.3s;
+    }
+    .modal-nav:hover {
+      background: white;
+      transform: translateY(-50%) scale(1.1);
+    }
+    .prev { left: 20px; }
+    .next { right: 20px; }
+
+    /* Indikator di dalam modal */
+    .modal-indicators {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+    }
+    .indicator {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .indicator.active {
+      background: white;
+    }
+    
+    .modal-close-gallery {
+      position: absolute;
+      top: 20px;
+      right: 40px;
+      color: white;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .modal-close-gallery:hover {
+      color: #bbb;
+      transform: rotate(90deg);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
     main.content{padding:60px 32px;background:white}
@@ -642,7 +682,7 @@
     /* Responsive */
     @media (max-width:900px){
       .grid{grid-template-columns:1fr}
-      .gallery-slide{height:320px}
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); } /* Tetap 2 kolom di tablet */
       .wa-float{bottom:20px;right:20px;width:55px;height:55px}
       .wa-float svg{width:28px;height:28px}
       main.content{padding:40px 20px}
@@ -669,7 +709,7 @@
       }
     }
     @media (max-width:480px){
-      .gallery-slide{height:280px}
+      .gallery-grid { grid-template-columns: 1fr; } /* 1 kolom di mobile */
       .brand h1{font-size:24px}
       body{padding:0}
       .site{margin:0}
@@ -714,24 +754,28 @@
       </div>
     </header>
 
-    <!-- Gallery Section -->
+    <!-- Gallery Section - MODIFIED -->
     <section class="gallery-section" id="gallery">
       <h2>Galeri Karya Kami</h2>
-      <div class="gallery-container">
-        <div id="gallerySlides" style="width:100%;height:400px;display:flex;align-items:center;justify-content:center;color:white">
-          <div style="text-align:center">
-            <div style="font-size:48px;margin-bottom:10px">📸</div>
-            <p>Memuat galeri...</p>
-          </div>
-        </div>
-
-        <div class="slide-controls">
-          <button class="slide-nav prev" onclick="moveSlide(-1)">❮</button>
-          <button class="slide-nav next" onclick="moveSlide(1)">❯</button>
+      <div id="galleryGrid" class="gallery-grid">
+        <!-- Gambar akan dimuat oleh JavaScript -->
+        <div style="text-align:center; grid-column: 1 / -1; color: #9ca3af;">
+          <div style="font-size:48px;margin-bottom:10px">📸</div>
+          <p>Memuat galeri...</p>
         </div>
       </div>
-      <div class="slide-indicators" id="galleryIndicators"></div>
     </section>
+
+    <!-- Modal untuk Slideshow - MODIFIED -->
+    <div id="galleryModal" class="gallery-modal">
+      <span class="modal-close-gallery" onclick="closeGalleryModal()">&times;</span>
+      <div class="modal-content-gallery">
+        <img id="modalImage" src="" alt="Gallery Image">
+        <button class="modal-nav prev" onclick="changeModalSlide(-1)">❮</button>
+        <button class="modal-nav next" onclick="changeModalSlide(1)">❯</button>
+        <div class="modal-indicators" id="modalIndicators"></div>
+      </div>
+    </div>
 
     <main class="content">
       <div class="grid">
@@ -832,14 +876,10 @@
               </div>
             </div>
 
-            <!-- ======================================================= -->
-            <!-- ========= BAGIAN YANG DIUBAH (MAPS) ========= -->
-            <!-- ======================================================= -->
             <div class="contact-item">
               <strong>📍 Lokasi Kami</strong>
               <p class="small muted">Klik peta untuk navigasi</p>
               <div class="map-container">
-                <!-- GANTI SRC DI BAWAH INI DENGAN URL EMBED DARI GOOGLE MAPS -->
                 <iframe 
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.1381988823823!2d110.31542057588759!3d-7.880605778378579!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7af96a1539d04f%3A0xeb6703eec2842bd3!2sAwaliya%20moslem%20mode!5e0!3m2!1sen!2sid!4v1765553080492!5m2!1sen!2sid"
                   allowfullscreen="" 
@@ -848,9 +888,6 @@
                 </iframe>
               </div>
             </div>
-            <!-- ======================================================= -->
-            <!-- ========= AKHIR BAGIAN YANG DIUBAH ========= -->
-            <!-- ======================================================= -->
 
             <div class="contact-item">
               <strong>🕐 Jam Konsultasi</strong>
@@ -890,7 +927,7 @@
   </div>
 
   <!-- WhatsApp Floating Button -->
-  <a href="https://wa.me/6281234567890?text=Halo%20Awaliya%20Modiste,%20saya%20ingin%20bertanya%20tentang%20jasa%20jahit" class="wa-float" target="_blank" title="Chat via WhatsApp">
+  <a href="https://wa.me/6289672158651?text=Halo%20Awaliya%20Modiste,%20saya%20ingin%20bertanya%20tentang%20jasa%20jahit" class="wa-float" target="_blank" title="Chat via WhatsApp">
     <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
       <path d="M16 0C7.164 0 0 7.163 0 16c0 2.825.745 5.478 2.05 7.766L.707 31.293l7.764-2.05C10.762 30.549 13.325 31.293 16 31.293c8.837 0 16-7.163 16-16S24.837 0 16 0zm0 29.293c-2.544 0-4.942-.721-6.977-1.978l-.5-.309-5.191 1.369 1.381-5.068-.32-.518C2.721 20.755 2 18.436 2 16c0-7.732 6.268-14 14-14s14 6.268 14 14-6.268 14-14 14zm7.684-10.146c-.42-.211-2.487-1.228-2.873-1.368-.386-.14-.666-.211-.947.21-.281.421-1.088 1.369-1.334 1.649-.246.281-.491.316-.912.105-.42-.21-1.774-.654-3.38-2.084-1.25-1.114-2.094-2.491-2.34-2.912-.246-.421-.026-.649.184-.859.189-.188.42-.491.631-.737.211-.246.281-.421.421-.702.14-.281.07-.526-.035-.737-.105-.211-.947-2.283-1.299-3.125-.342-.821-.689-.709-.947-.723-.246-.014-.526-.014-.807-.014-.281 0-.737.105-1.123.526-.386.421-1.474 1.439-1.474 3.511s1.509 4.072 1.719 4.353c.211.281 2.965 4.527 7.184 6.349 1.004.435 1.789.695 2.401.889.1.032 1.934.626 3.697.369 1.129-.168 2.487-.947 2.838-1.861.351-.914.351-1.702.246-1.861-.105-.158-.386-.246-.807-.456z"/>
     </svg>
@@ -909,13 +946,11 @@
     // Google Apps Script URL - GANTI DENGAN URL ANDA
     const GAS_URL = 'https://script.google.com/macros/s/AKfycbwK_jjrN54OsE-OiIm979J5Zm0BG77E7zk9NYVprmPUx6VwmZaKPvLhAQyPsO58MAV5/exec';
 
-    // Gallery Slideshow with Images from Google Sheets
-    let currentIndex = 0;
-    let slides = [];
-    let autoSlideInterval;
+    // Gallery Variables - MODIFIED
     let galleryData = [];
+    let modalCurrentIndex = 0;
 
-    // Load gallery from Google Sheets
+    // Load gallery from Google Sheets - MODIFIED
     async function loadGallery() {
       try {
         const response = await fetch(GAS_URL + '?action=getGallery');
@@ -923,11 +958,10 @@
         
         if (result.success && result.data && result.data.length > 0) {
           galleryData = result.data;
-          renderGallery();
-          startAutoSlide();
+          renderGalleryGrid();
         } else {
-          document.getElementById('gallerySlides').innerHTML = `
-            <div style="text-align:center;color:white">
+          document.getElementById('galleryGrid').innerHTML = `
+            <div style="text-align:center; grid-column: 1 / -1; color: #9ca3af;">
               <div style="font-size:48px;margin-bottom:10px">📸</div>
               <p>Galeri belum tersedia</p>
             </div>
@@ -935,8 +969,8 @@
         }
       } catch (error) {
         console.error('Error loading gallery:', error);
-        document.getElementById('gallerySlides').innerHTML = `
-          <div style="text-align:center;color:white">
+        document.getElementById('galleryGrid').innerHTML = `
+          <div style="text-align:center; grid-column: 1 / -1; color: #9ca3af;">
             <div style="font-size:48px;margin-bottom:10px">⚠️</div>
             <p>Gagal memuat galeri</p>
           </div>
@@ -944,74 +978,64 @@
       }
     }
 
-    function renderGallery() {
-      const container = document.getElementById('gallerySlides');
-      const indicatorsContainer = document.getElementById('galleryIndicators');
+    // Render Gallery Grid - MODIFIED
+    function renderGalleryGrid() {
+      const gridContainer = document.getElementById('galleryGrid');
+      const indicatorsContainer = document.getElementById('modalIndicators');
       
-      container.innerHTML = '';
+      gridContainer.innerHTML = '';
       indicatorsContainer.innerHTML = '';
       
       galleryData.forEach((item, index) => {
-        const slide = document.createElement('div');
-        slide.className = 'gallery-slide' + (index === 0 ? ' active' : '');
-        slide.style.backgroundImage = `url('${item.imageUrl}')`;
-        slide.innerHTML = `
-          <div class="slide-content">
-            <h3>${item.title}</h3>
-            <p>${item.description}</p>
-          </div>
-        `;
-        container.appendChild(slide);
-        
+        // Create grid item
+        const gridItem = document.createElement('div');
+        gridItem.className = 'gallery-item';
+        gridItem.onclick = () => openGalleryModal(index);
+        gridItem.innerHTML = `<img src="${item.imageUrl}" alt="${item.title}">`;
+        gridContainer.appendChild(gridItem);
+
+        // Create modal indicator
         const indicator = document.createElement('span');
         indicator.className = 'indicator' + (index === 0 ? ' active' : '');
-        indicator.onclick = () => setSlide(index);
+        indicator.onclick = () => setModalSlide(index);
         indicatorsContainer.appendChild(indicator);
       });
+    }
+    
+    // Modal Gallery Functions - MODIFIED
+    function openGalleryModal(index) {
+      const modal = document.getElementById('galleryModal');
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      setModalSlide(index);
+    }
+
+    function closeGalleryModal() {
+      const modal = document.getElementById('galleryModal');
+      modal.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    function setModalSlide(index) {
+      if (galleryData.length === 0) return;
+
+      if (index >= galleryData.length) modalCurrentIndex = 0;
+      if (index < 0) modalCurrentIndex = galleryData.length - 1;
+      else modalCurrentIndex = index;
+
+      const modalImage = document.getElementById('modalImage');
+      const indicators = document.querySelectorAll('#modalIndicators .indicator');
       
-      slides = document.querySelectorAll('.gallery-slide');
+      modalImage.src = galleryData[modalCurrentIndex].imageUrl;
+      modalImage.alt = galleryData[modalCurrentIndex].title;
+
+      indicators.forEach((ind, i) => {
+        ind.classList.toggle('active', i === modalCurrentIndex);
+      });
     }
 
-    function showSlide(index) {
-      if (slides.length === 0) return;
-      
-      if (index >= slides.length) currentIndex = 0;
-      if (index < 0) currentIndex = slides.length - 1;
-
-      const indicators = document.querySelectorAll('.indicator');
-      slides.forEach(s => s.classList.remove('active'));
-      indicators.forEach(i => i.classList.remove('active'));
-
-      slides[currentIndex].classList.add('active');
-      if (indicators[currentIndex]) {
-        indicators[currentIndex].classList.add('active');
-      }
-    }
-
-    function moveSlide(direction) {
-      currentIndex += direction;
-      showSlide(currentIndex);
-      resetAutoSlide();
-    }
-
-    function setSlide(index) {
-      currentIndex = index;
-      showSlide(currentIndex);
-      resetAutoSlide();
-    }
-
-    function autoSlide() {
-      currentIndex++;
-      showSlide(currentIndex);
-    }
-
-    function resetAutoSlide() {
-      clearInterval(autoSlideInterval);
-      startAutoSlide();
-    }
-
-    function startAutoSlide() {
-      autoSlideInterval = setInterval(autoSlide, 4000);
+    function changeModalSlide(direction) {
+      setModalSlide(modalCurrentIndex + direction);
     }
 
     // Read More Toggle
