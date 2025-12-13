@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Awaliya Modiste - Jasa Jahit Baju Berkualitas</title>
-  <meta name="description" content="Jasa jahit baju custom, modiste profesional, rapi dan terjangkau. Melayani kebaya, gaun pesta, dress, dan permak.">
+  <meta name="description" content="Jasa jahit baju custom, modiste profesional, rapi dan terjangkau. Melayani kebaya, gaun pesta, dress, seragam sekolah, seragam kantor.">
 
   <style>
     /* Reset minimal */
@@ -25,7 +25,7 @@
     .site{
       max-width:100%;
       margin:0;
-      background:#ffffff;
+      background:#d1ddf3;
       overflow:hidden;
     }
 
@@ -37,8 +37,8 @@
       display:flex;
       justify-content:space-between;
       align-items:center;
-      padding:20px 32px;
-      border-bottom:1px solid rgba(255,255,255,0.1);
+      padding:16px 32px;
+      border-bottom:8px solid rgba(255,255,255,0.1);
     }
     .hero-logo{
       font-size:28px;
@@ -76,57 +76,267 @@
       transition:all 0.3s;
     }
     .hero-content{
-      padding:48px 32px;
+      padding:34px 32px;
       text-align:center;
     }
-    .brand h1{font-size:32px;letter-spacing:-0.5px;margin-bottom:8px}
+    .brand h1{font-size:36px;letter-spacing:1px;margin-bottom:6px}
     .brand p{opacity:0.95;font-size:16px;max-width:700px;margin:0 auto}
 
     /* Gallery Section - MODIFIED */
     .gallery-section{
-      padding:60px 32px;
-      background:#f8fafc;
+      padding:30px 32px 60px 32px;
+      background: linear-gradient(90deg, #63e2ed 25%, #349ddc 21%, #66418b 81%);
+      position: relative;
+      overflow: hidden;
+    }
+    .gallery-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255,255,255,0.08) 0%, transparent 50%);
+      pointer-events: none;
     }
     .gallery-section h2{
-      font-size:32px;
-      margin-bottom:40px;
-      color:#0b1220;
-      text-align:center;
+  font-size:28px;
+  font-family:'Lora', serif;
+margin-bottom:2px;
+  color:#162c54;
+  letter-spacing:8px;
+  text-align:center;
+  position:relative;
+  z-index:1;
+  text-shadow:0 2px 10px rgba(0,0,0,0.2);
+}
+
+    
+    /* Main Image Popup - REDESIGNED AS POPUP */
+    .gallery-main-popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.8);
+      width: 90%;
+      max-width: 500px;
+      max-height: 85vh;
+      background: white;
+      border: 2px solid ;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      z-index: 1500;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      overflow: hidden;
     }
     
-    /* Grid untuk thumbnail */
+    .gallery-main-popup.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    
+    .popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(5px);
+      z-index: 1400;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .popup-overlay.show {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .popup-header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 15px 20px;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent);
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .popup-title {
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+    
+    .popup-close {
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 20px;
+      color: #667eea;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    
+    .popup-close:hover {
+      background: white;
+      transform: rotate(90deg) scale(1.1);
+    }
+    
+    .popup-image-container {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f8fafc;
+    }
+    
+    .popup-image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    
+    .popup-image.active {
+      opacity: 1;
+    }
+    
+    .popup-actions {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 20px;
+      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+    
+    .popup-btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 25px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+    
+    .popup-btn-view {
+      background: rgba(255, 255, 255, 0.9);
+      color: #667eea;
+    }
+    
+    .popup-btn-view:hover {
+      background: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255,255,255,0.3);
+    }
+    
+    /* Grid untuk thumbnail dengan background modern */
+    .gallery-grid-container {
+      position: relative;
+      z-index: 1;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 30px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+    
     .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr); /* 2 kolom untuk 4 foto */
-      gap: 16px;
-      max-width: 800px;
+      display: flex;
+      flex-wrap: wrap;
       margin: 0 auto;
     }
 
     .gallery-item {
       position: relative;
       overflow: hidden;
-      border-radius: 12px;
       cursor: pointer;
-      aspect-ratio: 2 / 3; /* Rasio potrait umum */
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      flex: 0 0 12.5%; /* 100% / 8 = 12.5% untuk 8 kolom */
+      aspect-ratio: 1 / 1;
+      transition: all 0.3s ease;
+      opacity: 0.85;
+      border: 2px solid transparent;
+    }
+    
+    .gallery-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(102,126,234,0.3), rgba(118,75,162,0.3));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 1;
     }
 
     .gallery-item img {
       width: 100%;
       height: 100%;
-      object-fit: cover; /* Memastikan gambar memenuhi container tanpa distorsi */
+      object-fit: cover;
       transition: transform 0.4s ease;
     }
 
     .gallery-item:hover {
-        transform: scale(1.03);
-        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+      transform: scale(1.08);
+      opacity: 1;
+      z-index: 10;
+      border-color: rgba(255, 255, 255, 0.5);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+    
+    .gallery-item:hover::before {
+      opacity: 1;
     }
     
     .gallery-item:hover img {
-        transform: scale(1.1);
+      transform: scale(1.15);
+    }
+    
+    .gallery-item::after {
+      content: '🔍';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 28px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 2;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+    }
+    
+    .gallery-item:hover::after {
+      opacity: 1;
     }
 
     /* Modal untuk slideshow besar - MODIFIED */
@@ -227,7 +437,7 @@
       to { opacity: 1; }
     }
 
-    main.content{padding:60px 32px;background:white}
+    main.content{padding:60px 32px;background:#f2f2f2}
     .grid{display:grid;grid-template-columns:1fr 320px;gap:40px;max-width:1200px;margin:0 auto}
 
     /* About & services */
@@ -237,10 +447,10 @@
 
     /* About with Read More */
     .about-content{
-      background:linear-gradient(180deg,#f8fafc,#ffffff);
-      padding:20px;
+      background: linear-gradient(180deg, #e4f5fa 0%, #b1f2f5 100%);
+      padding:32px 34px;
       border-radius:12px;
-      border:1px solid #eef2ff;
+      border:2px solid #65def3;
     }
     .about-text{
       max-height:120px;
@@ -258,7 +468,7 @@
       left:0;
       right:0;
       height:40px;
-      background:linear-gradient(to bottom, transparent, #ffffff);
+     
     }
     .read-more-btn{
       display:inline-block;
@@ -471,7 +681,6 @@
       border-color:#667eea;
       box-shadow:0 4px 12px rgba(102,126,234,0.2)
     }
-    /* Style untuk iframe peta */
     .map-container iframe {
       width: 100%;
       height: 250px;
@@ -672,7 +881,7 @@
     }
 
     footer{
-      padding:18px 32px;
+      padding:40px 32px;
       background:#071133;
       color:#c7d2fe;
       text-align:center;
@@ -682,7 +891,8 @@
     /* Responsive */
     @media (max-width:900px){
       .grid{grid-template-columns:1fr}
-      .gallery-grid { grid-template-columns: repeat(2, 1fr); } /* Tetap 2 kolom di tablet */
+      .gallery-item { flex: 0 0 25%; } /* 4 kolom di tablet */
+      .gallery-grid-container { padding: 20px; }
       .wa-float{bottom:20px;right:20px;width:55px;height:55px}
       .wa-float svg{width:28px;height:28px}
       main.content{padding:40px 20px}
@@ -709,7 +919,9 @@
       }
     }
     @media (max-width:480px){
-      .gallery-grid { grid-template-columns: 1fr; } /* 1 kolom di mobile */
+      .gallery-item { flex: 0 0 33.333%; } /* 3 kolom di mobile */
+      .gallery-grid-container { padding: 15px; border-radius: 16px; }
+      .gallery-main-popup { max-width: 95%; }
       .brand h1{font-size:24px}
       body{padding:0}
       .site{margin:0}
@@ -757,14 +969,37 @@
     <!-- Gallery Section - MODIFIED -->
     <section class="gallery-section" id="gallery">
       <h2>Galeri Karya Kami</h2>
-      <div id="galleryGrid" class="gallery-grid">
-        <!-- Gambar akan dimuat oleh JavaScript -->
-        <div style="text-align:center; grid-column: 1 / -1; color: #9ca3af;">
-          <div style="font-size:48px;margin-bottom:10px">📸</div>
-          <p>Memuat galeri...</p>
+      
+      <!-- Thumbnail Grid dengan Background Modern -->
+      <div class="gallery-grid-container">
+        <div id="galleryGrid" class="gallery-grid">
+          <!-- Gambar akan dimuat oleh JavaScript -->
+          <div style="text-align:center; width: 100%; padding: 40px; color: rgba(255,255,255,0.8);">
+            <div style="font-size:48px;margin-bottom:10px">📸</div>
+            <p>Memuat galeri...</p>
+          </div>
         </div>
       </div>
     </section>
+
+    <!-- Popup Overlay -->
+    <div class="popup-overlay" id="popupOverlay" onclick="closePopup()"></div>
+
+    <!-- Mini Popup untuk Main Image -->
+    <div class="gallery-main-popup" id="mainPopup">
+      <div class="popup-header">
+        <span class="popup-title" id="popupTitle">Preview</span>
+        <button class="popup-close" onclick="closePopup()">×</button>
+      </div>
+      <div class="popup-image-container">
+        <img class="popup-image active" id="popupImage" src="" alt="Gallery Preview">
+      </div>
+      <div class="popup-actions">
+        <button class="popup-btn popup-btn-view" onclick="openFullscreen()">
+          🖼️ Lihat Fullscreen
+        </button>
+      </div>
+    </div>
 
     <!-- Modal untuk Slideshow - MODIFIED -->
     <div id="galleryModal" class="gallery-modal">
@@ -784,7 +1019,7 @@
             <h2>Tentang Kami</h2>
             <div class="about-content">
               <div class="about-text" id="aboutText">
-                <p class="lead">Awaliya Modiste adalah jasa modiste profesional yang mengutamakan kepuasan pelanggan. Kami melayani jahit custom dengan detail sempurna, dari pemilihan bahan hingga finishing.</p>
+                <p class="lead"><strong>Awaliya Modiste </strong>adalah jasa modiste profesional yang mengutamakan kepuasan pelanggan. Kami melayani jahit custom dengan detail sempurna, dari pemilihan bahan hingga finishing.</p>
                 <p class="lead" style="margin-top:12px">Setiap jahitan dikerjakan dengan teliti dan penuh dedikasi untuk menghasilkan baju impian Anda. Dengan pengalaman bertahun-tahun di industri fashion, kami memahami betul bagaimana membuat pakaian yang tidak hanya indah dipandang, tetapi juga nyaman dipakai.</p>
                 <p class="lead" style="margin-top:12px">Tim kami terdiri dari penjahit berpengalaman yang mahir dalam berbagai teknik jahit, mulai dari jahitan tangan tradisional hingga teknik modern. Kami selalu mengikuti perkembangan tren fashion terkini sambil tetap menghargai nilai-nilai klasik dalam setiap karya kami.</p>
                 <p class="lead" style="margin-top:12px">Kepercayaan dan kepuasan pelanggan adalah prioritas utama kami. Oleh karena itu, kami selalu memberikan konsultasi mendetail sebelum proses jahit dimulai, memastikan setiap detail sesuai dengan keinginan Anda.</p>
@@ -810,7 +1045,9 @@
               <li>👗 Jahit Gaun Pesta & Kebaya Modern</li>
               <li>✨ Dress Casual & Formal Wear</li>
               <li>💼 Blazer & Seragam Kantor</li>
-              <li>✂️ Modifikasi & Custom Design</li>
+              <li>✂️ Modifikasi & Custom 
+Design</li>
+              <li>Seragam Sekolah</li>
               <li>🎨 Konsultasi Desain & Bahan</li>
             </ul>
           </section>
@@ -891,7 +1128,7 @@
 
             <div class="contact-item">
               <strong>🕐 Jam Konsultasi</strong>
-              <p class="small muted">Senin - Sabtu, 09:00 - 18:00</p>
+              <p class="small muted">Senin - Sabtu, 09:00 - 20:00</p>
             </div>
 
             <div class="contact-item">
@@ -919,7 +1156,7 @@
       <div style="max-width:1000px;margin:0 auto;padding:6px 18px">
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
           <div class="small">© <strong>Awaliya Modiste</strong> — Jasa Jahit Baju Berkualitas</div>
-          <div class="small muted">Melayani dengan Hati, Menjahit dengan Cinta ❤️</div>
+          <div class="small muted">All rights reserved | Created with by Mahardhika</div>
         </div>
       </div>
     </footer>
@@ -949,6 +1186,7 @@
     // Gallery Variables - MODIFIED
     let galleryData = [];
     let modalCurrentIndex = 0;
+    let currentPopupIndex = 0;
 
     // Load gallery from Google Sheets - MODIFIED
     async function loadGallery() {
@@ -961,7 +1199,7 @@
           renderGalleryGrid();
         } else {
           document.getElementById('galleryGrid').innerHTML = `
-            <div style="text-align:center; grid-column: 1 / -1; color: #9ca3af;">
+            <div style="text-align:center; width: 100%; padding: 40px; color: rgba(255,255,255,0.8);">
               <div style="font-size:48px;margin-bottom:10px">📸</div>
               <p>Galeri belum tersedia</p>
             </div>
@@ -970,7 +1208,7 @@
       } catch (error) {
         console.error('Error loading gallery:', error);
         document.getElementById('galleryGrid').innerHTML = `
-          <div style="text-align:center; grid-column: 1 / -1; color: #9ca3af;">
+          <div style="text-align:center; width: 100%; padding: 40px; color: rgba(255,255,255,0.8);">
             <div style="font-size:48px;margin-bottom:10px">⚠️</div>
             <p>Gagal memuat galeri</p>
           </div>
@@ -990,7 +1228,9 @@
         // Create grid item
         const gridItem = document.createElement('div');
         gridItem.className = 'gallery-item';
-        gridItem.onclick = () => openGalleryModal(index);
+        gridItem.onclick = () => {
+          showPopup(index);
+        };
         gridItem.innerHTML = `<img src="${item.imageUrl}" alt="${item.title}">`;
         gridContainer.appendChild(gridItem);
 
@@ -1001,6 +1241,51 @@
         indicatorsContainer.appendChild(indicator);
       });
     }
+    
+    // Show Popup with image
+    function showPopup(index) {
+      const popup = document.getElementById('mainPopup');
+      const overlay = document.getElementById('popupOverlay');
+      const popupImage = document.getElementById('popupImage');
+      const popupTitle = document.getElementById('popupTitle');
+      
+      currentPopupIndex = index;
+      
+      // Update image and title
+      popupImage.src = galleryData[index].imageUrl;
+      popupImage.alt = galleryData[index].title;
+      popupTitle.textContent = galleryData[index].title || 'Preview';
+      
+      // Show popup with animation
+      overlay.classList.add('show');
+      popup.classList.add('show');
+      document.body.style.overflow = 'hidden';
+    }
+    
+    // Close Popup
+    function closePopup() {
+      const popup = document.getElementById('mainPopup');
+      const overlay = document.getElementById('popupOverlay');
+      
+      popup.classList.remove('show');
+      overlay.classList.remove('show');
+      document.body.style.overflow = 'auto';
+    }
+    
+    // Open Fullscreen Modal from Popup
+    function openFullscreen() {
+      closePopup();
+      setTimeout(() => {
+        openGalleryModal(currentPopupIndex);
+      }, 300);
+    }
+    
+    // Close popup with ESC key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closePopup();
+      }
+    });
     
     // Modal Gallery Functions - MODIFIED
     function openGalleryModal(index) {
